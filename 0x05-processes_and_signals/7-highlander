@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
-# Terminate immediately upon SIGTERM.
+# Infinite loop that prints a message and responds to SIGTERM without terminating
 
-term_handler() {
-  echo "I am invincible!!!"
-  exit 0
-}
+trap 'echo "I am invincible!!!"' SIGTERM
 
-trap 'term_handler' SIGTERM
-
+echo "To infinity and beyond"
 while true; do
-  echo "To infinity and beyond"
-  sleep 2
+    sleep 2
+    echo "To infinity and beyond"
 done
