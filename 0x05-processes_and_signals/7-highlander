@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
-# Displays "I am invincible!!!" when receiving a SIGTERM signal
+# Display To infinity and beyond indefinitely with SIGTERM handling
 
-terminate() {
-    echo "I am invincible!!!"
-}
+trap 'echo "I am invincible!!!"' SIGTERM
 
-trap terminate TERM
-
-while true
+while :
 do
     echo "To infinity and beyond"
     sleep 2
