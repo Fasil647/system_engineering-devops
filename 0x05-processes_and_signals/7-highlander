@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-running=1
+# Terminate immediately upon SIGTERM.
 
 term_handler() {
   echo "I am invincible!!!"
-  running=0
+  exit 0
 }
 
-trap 'term_handler' SIGTERM SIGINT
+trap 'term_handler' SIGTERM
 
-while [ "$running" -eq 1 ]; do
+while true; do
   echo "To infinity and beyond"
-  sleep 2 &
-  wait $!
+  sleep 2
 done
-
-echo "Cleanup complete. Bye."
-exit 0
