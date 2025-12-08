@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
-# Infinite loop that prints a message and responds to SIGTERM without terminating
+set -euo pipefail
 
-trap 'echo "I am invincible!!!"' SIGTERM
+running=1
 
-while true; do
-    echo "To infinity and beyond"
-    sleep 2
+term_handler() {
+  echo "I am invincible!!!"
+  running=0
+}
+
+trap 'term_handler' SIGTERM SIGINT
+
+while [ "$running" -eq 1 ]; do
+  echo "To infinity and beyond"
+  sleep 2 &
+  wait $!
 done
+
+echo "Cleanup complete. Bye."
+exit 0
